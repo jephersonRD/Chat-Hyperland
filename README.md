@@ -18,32 +18,15 @@
 
 ## ¿Qué es Kara AI?
 
-Kara AI es un **widget de escritorio** que te da acceso a ChatGPT, Gemini y otros modelos de IA **sin abrir el navegador**. Un simple atajo de teclado (`Super + ñ`) y ya puedes preguntar lo que necesites: un comando, un código, una duda rápida.
+Kara AI es un **widget de escritorio** que te da acceso a ChatGPT, Gemini y otros modelos de IA **sin abrir el navegador**. Un simple atajo de teclado (`Super + ñ`) y ya puedes preguntar lo que necesite: un comando, un código, una duda rápida.
 
 Pensado para **Hyprland** y usuarios de Linux que no quieren cambiar de ventana cada vez que necesitan ayuda de IA.
 
+<img src="Assets/2.png" alt="Kara AI Preview" width="600">
+
 ## Capturas
 
-```
-┌─────────────────────────────────────┐
-│  ⚡ Kara AI                    ☰ 🗑 │
-│─────────────────────────────────────│
-│                                     │
-│  Tú: cómo ver procesos en linux     │
-│                                     │
-│  Kara: Usa `htop` o `ps aux`...    │
-│  ┌──────────────────────────────┐   │
-│  │ bash                     📋  │   │
-│  │ ───────────────────────────  │   │
-│  │ $ htop                       │   │
-│  │ $ ps aux --sort=-%mem        │   │
-│  └──────────────────────────────┘   │
-│                                     │
-│─────────────────────────────────────│
-│  Escribe un mensaje...          ▶   │
-│  llama-3.3-70b   ·57 tokens · 12↕  │
-└─────────────────────────────────────┘
-```
+<img src="Assets/1.png" alt="Kara AI Captura" width="600">
 
 ## Proveedores de IA
 
@@ -96,22 +79,6 @@ hyprctl reload
 | Detener generación | `Escape` o botón ⏹ |
 | Cambiar modelo | Click en el nombre del modelo arriba a la derecha |
 
-## Estructura
-
-```
-Kara-AI/
-├── src/
-│   ├── index.html          # Interfaz del chat
-│   ├── style.css           # Tema glassmorphism
-│   └── script.js           # Lógica, APIs, renderizado
-├── scripts/
-│   ├── kara-widget.py      # Widget GTK3 para Hyprland
-│   ├── kara-toggle.sh      # Toggle abrir/cerrar
-│   ├── setup-hyprland.sh   # Configura keybind
-│   └── setup-terminal-handler.sh  # Protocolo terminal://
-└── README.md
-```
-
 ## Requisitos
 
 | Dependencia | Motivo |
@@ -127,4 +94,4 @@ Las contribuciones son bienvenidas. Abre un issue o un pull request.
 
 ## Licencia
 
-MIT
+[MIT](LICENSE)
