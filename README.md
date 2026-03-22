@@ -2,7 +2,7 @@
 
 # Kara AI
 
-<img src="Assets/3.jpg" alt="Kara AI Logo" width="400">
+<img src="Assets/3.jpg" alt="Kara AI Logo" width="100">
 
 **Tu asistente de IA en el escritorio. Sin navegador. Sin distracciones.**
 
