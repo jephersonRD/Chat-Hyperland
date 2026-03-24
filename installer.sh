@@ -4,6 +4,11 @@
 #  https://github.com/jephersonRD/Chat-Hyperland
 # ═══════════════════════════════════════════════════════════════════════════════
 
+# Re-ejecutar con bash si estamos en fish u otro shell
+if [ -z "$BASH_VERSION" ]; then
+  exec bash "$0" "$@"
+fi
+
 set -e
 
 # Colores
@@ -112,25 +117,22 @@ t() {
 }
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  BANNER 3D
+#  BANNER ASCII
 # ═══════════════════════════════════════════════════════════════════════════════
 
 show_banner() {
   clear
   echo ""
   echo -e "${MAGENTA}${BOLD}"
-  echo "    ╔═══════════════════════════════════════════════════════════╗"
-  echo "    ║                                                           ║"
-  echo "    ║   ██╗  ██╗ █████╗ ██████╗  █████╗     ██╗ █████╗          ║"
-  echo "    ║   ██║ ██╔╝██╔══██╗██╔══██╗██╔══██╗    ██║██╔══██╗         ║"
-  echo "    ║   █████╔╝ ███████║██████╔╝███████║    ██║███████║         ║"
-  echo "    ║   ██╔═██╗ ██╔══██║██╔══██╗██╔══██║    ██║██╔══██║         ║"
-  echo "    ║   ██║  ██╗██║  ██║██║  ██║██║  ██║    ██║██║  ██║         ║"
-  echo "    ║   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝╚═╝  ╚═╝         ║"
-  echo "    ║                                                           ║"
-  echo -e "    ║          ${CYAN}✨ Asistente de IA para Hyprland ✨${MAGENTA}            ║"
-  echo "    ║                                                           ║"
-  echo "    ╚═══════════════════════════════════════════════════════════╝"
+  echo "   ╦╔═╔═╗╦═╗╔═╗ ╔═╗╔═╗╔═╗╦═╗"
+  echo "   ╠╩╗║╣ ╠╦╝║╣  ║╣ ║ ║║ ║╠╦╝"
+  echo "   ╩ ╩╚═╝╩╚═╚═╝o╚═╝╚═╝╚═╝╩╚═"
+  echo ""
+  echo -e "   ${CYAN}┌─────────────────────────────────────────┐${MAGENTA}"
+  echo -e "   ${CYAN}│${NC}  ${WHITE}Asistente de IA para Hyprland${NC}        ${CYAN}│${MAGENTA}"
+  echo -e "   ${CYAN}│${NC}  ${DIM}Sin navegador · Sin distracciones${NC}    ${CYAN}│${MAGENTA}"
+  echo -e "   ${CYAN}└─────────────────────────────────────────┘${MAGENTA}"
+  echo ""
   echo -e "${NC}"
   echo -e "    ${DIM}https://github.com/jephersonRD/Chat-Hyperland${NC}"
   echo ""
