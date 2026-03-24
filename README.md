@@ -35,6 +35,8 @@
 - **Gratis** - Usa modelos gratuitos de Groq, Gemini y OpenRouter
 - **Para Hyprland** - Integración perfecta con el gestor de ventanas
 
+- <img src="Assets/2.png" alt="Kara AI interfaz de chat con IA" width="600">
+
 ### Instalación Rápida
 
 ```bash
