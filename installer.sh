@@ -124,14 +124,12 @@ show_banner() {
   clear
   echo ""
   echo -e "${MAGENTA}${BOLD}"
-  echo "   ╦╔═╔═╗╦═╗╔═╗ ╔═╗╔═╗╔═╗╦═╗"
-  echo "   ╠╩╗║╣ ╠╦╝║╣  ║╣ ║ ║║ ║╠╦╝"
-  echo "   ╩ ╩╚═╝╩╚═╚═╝o╚═╝╚═╝╚═╝╩╚═"
-  echo ""
-  echo -e "   ${CYAN}┌─────────────────────────────────────────┐${MAGENTA}"
-  echo -e "   ${CYAN}│${NC}  ${WHITE}Asistente de IA para Hyprland${NC}        ${CYAN}│${MAGENTA}"
-  echo -e "   ${CYAN}│${NC}  ${DIM}Sin navegador · Sin distracciones${NC}    ${CYAN}│${MAGENTA}"
-  echo -e "   ${CYAN}└─────────────────────────────────────────┘${MAGENTA}"
+  echo "  ██╗  ██╗ █████╗ ██████╗  █████╗      █████╗  ██╗"
+  echo "  ██║ ██╔╝██╔══██╗██╔══██╗██╔══██╗    ██╔══██╗ ██║"
+  echo "  █████╔╝ ███████║██████╔╝███████║    ███████║ ██║"
+  echo "  ██╔═██╗ ██╔══██║██╔══██╗██╔══██║    ██╔══██║ ██║"
+  echo "  ██║  ██╗██║  ██║██║  ██║██║  ██║    ██║  ██║ ██║"
+  echo "  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝ ╚═╝"
   echo ""
   echo -e "${NC}"
   echo -e "    ${DIM}https://github.com/jephersonRD/Chat-Hyperland${NC}"
@@ -300,7 +298,7 @@ check_and_install_deps() {
 
   # Instalar dependencias faltantes
   if [ ${#missing[@]} -gt 0 ]; then
-    echo -e "\n${YELLOW}$(t "missing_deps")${missing[*]}${NC}"
+    echo -e "\n${YELLOW}$(t "missing_deps") ${missing[*]}${NC}"
     echo -e "${CYAN}$(t "installing_deps")${NC}\n"
 
     # Actualizar repositorios
@@ -564,12 +562,15 @@ select_language() {
   clear
   echo ""
   echo -e "${MAGENTA}${BOLD}"
-  echo "    ╔═══════════════════════════════════════╗"
-  echo "    ║                                       ║"
-  echo "    ║         ✨ Kara AI Installer ✨       ║"
-  echo "    ║                                       ║"
-  echo "    ╚═══════════════════════════════════════╝"
+  echo "  ██╗  ██╗ █████╗ ██████╗  █████╗      █████╗  ██╗"
+  echo "  ██║ ██╔╝██╔══██╗██╔══██╗██╔══██╗    ██╔══██╗ ██║"
+  echo "  █████╔╝ ███████║██████╔╝███████║    ███████║ ██║"
+  echo "  ██╔═██╗ ██╔══██║██╔══██╗██╔══██║    ██╔══██║ ██║"
+  echo "  ██║  ██╗██║  ██║██║  ██║██║  ██║    ██║  ██║ ██║"
+  echo "  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝ ╚═╝"
+  echo ""
   echo -e "${NC}"
+  echo -e "    ${DIM}https://github.com/jephersonRD/Chat-Hyperland${NC}"
   echo ""
   echo -e "  ${WHITE}$(t "select_lang")${NC}"
   echo ""
