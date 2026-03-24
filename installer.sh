@@ -7,9 +7,11 @@
 # Detectar si se ejecuta desde pipe (curl | bash) y re-ejecutar correctamente
 if [ ! -t 0 ]; then
   TEMP_SCRIPT=$(mktemp)
-  curl -sSL "https://raw.githubusercontent.com/jephersonRD/Kara_AI/main/installer.sh" -o "$TEMP_SCRIPT"
+  cat > "$TEMP_SCRIPT"
   chmod +x "$TEMP_SCRIPT"
-  exec bash "$TEMP_SCRIPT" "$@"
+  bash "$TEMP_SCRIPT" "$@" < /dev/tty
+  rm -f "$TEMP_SCRIPT"
+  exit $?
 fi
 
 # Re-ejecutar con bash si estamos en fish u otro shell
