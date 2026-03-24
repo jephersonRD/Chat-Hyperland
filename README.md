@@ -141,7 +141,7 @@ El instalador te permitirá:
 Para que el instalador funcione correctamente, estos archivos deben estar en el repositorio:
 
 ```
-Chat-Hyperland/
+Kara_AI/
 ├── installer.sh          # Script de instalación
 ├── scripts/
 │   └── kara-widget.py    # Widget principal

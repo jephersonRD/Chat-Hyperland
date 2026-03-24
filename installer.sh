@@ -309,21 +309,29 @@ check_and_install_deps() {
   # Instalar dependencias faltantes
   if [ ${#missing[@]} -gt 0 ]; then
     echo -e "\n${YELLOW}$(t "missing_deps") ${missing[*]}${NC}"
-    echo -e "${CYAN}$(t "installing_deps")${NC}\n"
+    echo -e "${CYAN}¿Deseas instalar las dependencias faltantes? (s/n)${NC}"
+    read -rp "> " install_deps
 
-    # Actualizar repositorios
-    echo -e "${DIM}Actualizando repositorios...${NC}"
-    $PKG_UPDATE 2>/dev/null || true
+    if [[ "$install_deps" == "s" || "$install_deps" == "S" ]]; then
+      echo -e "${CYAN}$(t "installing_deps")${NC}\n"
 
-    # Instalar paquetes
-    for pkg in "${missing[@]}"; do
-      echo -e "${DIM}Instalando ${pkg}...${NC}"
-      $PKG_INSTALL "$pkg" 2>/dev/null || {
-        echo -e "${RED}Error instalando ${pkg}${NC}"
-      }
-    done
+      # Actualizar repositorios
+      echo -e "${DIM}Actualizando repositorios...${NC}"
+      $PKG_UPDATE 2>/dev/null || true
 
-    echo -e "\n${GREEN}✓ Dependencias instaladas${NC}"
+      # Instalar paquetes
+      for pkg in "${missing[@]}"; do
+        echo -e "${DIM}Instalando ${pkg}...${NC}"
+        $PKG_INSTALL "$pkg" 2>/dev/null || {
+          echo -e "${RED}Error instalando ${pkg}${NC}"
+        }
+      done
+
+      echo -e "\n${GREEN}✓ Dependencias instaladas${NC}"
+    else
+      echo -e "${YELLOW}Instalación de dependencias omitida.${NC}"
+      echo -e "${DIM}Puedes instalarlas manualmente después.${NC}"
+    fi
   else
     echo -e "\n${GREEN}✓ Todas las dependencias están instaladas${NC}"
   fi
@@ -340,12 +348,20 @@ download_project() {
   mkdir -p "$INSTALL_DIR"
 
   # Eliminar instalación anterior si existe
-  if [ -d "$INSTALL_DIR/Chat-Hyperland" ]; then
-    rm -rf "$INSTALL_DIR/Chat-Hyperland"
+  if [ -d "$INSTALL_DIR/Kara_AI" ]; then
+    rm -rf "$INSTALL_DIR/Kara_AI"
   fi
 
+  # Animación de descarga
+  echo -ne "${DIM}"
+  for i in {1..50}; do
+    echo -ne "▓"
+    sleep 0.1
+  done
+  echo -e "${NC}"
+
   # Clonar repositorio
-  if git clone --depth 1 "$REPO_URL" "$INSTALL_DIR/Chat-Hyperland" 2>/dev/null; then
+  if git clone --depth 1 "$REPO_URL" "$INSTALL_DIR/Kara_AI" 2>/dev/null; then
     echo -e "${GREEN}$(t "download_ok")${NC}"
   else
     echo -e "${RED}Error al descargar el proyecto${NC}"
@@ -353,11 +369,11 @@ download_project() {
   fi
 
   # Hacer ejecutable el widget
-  chmod +x "$INSTALL_DIR/Chat-Hyperland/scripts/kara-widget.py"
+  chmod +x "$INSTALL_DIR/Kara_AI/scripts/kara-widget.py"
 
   # Crear archivo de configuración si no existe
-  if [ ! -f "$INSTALL_DIR/Chat-Hyperland/src/config.json" ]; then
-    echo '{"gemini":"","groq":"","openrouter":""}' > "$INSTALL_DIR/Chat-Hyperland/src/config.json"
+  if [ ! -f "$INSTALL_DIR/Kara_AI/src/config.json" ]; then
+    echo '{"gemini":"","groq":"","openrouter":""}' > "$INSTALL_DIR/Kara_AI/src/config.json"
   fi
 }
 
@@ -386,10 +402,10 @@ setup_keybinding() {
   # Agregar atajo de teclado
   echo "" >> "$HYPR_CONF"
   echo "# Kara AI - Widget de asistente IA" >> "$HYPR_CONF"
-  echo "bind = SUPER, grave, exec, python3 $INSTALL_DIR/Chat-Hyperland/scripts/kara-widget.py" >> "$HYPR_CONF"
+  echo "bind = SUPER, ntilde, exec, python3 $INSTALL_DIR/Kara_AI/scripts/kara-widget.py" >> "$HYPR_CONF"
 
   echo -e "${GREEN}$(t "keys_ok")${NC}"
-  echo -e "${DIM}Atajo: Super + Ñ (o backtick)${NC}"
+  echo -e "${DIM}Atajo: Super + Ñ${NC}"
 
   # Recargar Hyprland si está corriendo
   if pgrep -x "Hyprland" > /dev/null; then
@@ -409,7 +425,7 @@ do_install() {
   echo ""
 
   # Verificar si ya está instalado
-  if [ -d "$INSTALL_DIR/Chat-Hyperland" ]; then
+  if [ -d "$INSTALL_DIR/Kara_AI" ]; then
     echo -e "${YELLOW}$(t "already_installed")${NC}"
     echo -e "${DIM}Usa la opción 2 para reparar o 3 para eliminar.${NC}"
     read -rp "Presiona Enter para continuar..."
@@ -433,7 +449,7 @@ do_install() {
   echo ""
 
   # Iniciar el widget
-  nohup python3 "$INSTALL_DIR/Chat-Hyperland/scripts/kara-widget.py" &>/dev/null &
+  nohup python3 "$INSTALL_DIR/Kara_AI/scripts/kara-widget.py" &>/dev/null &
   disown
 
   sleep 2
@@ -451,7 +467,7 @@ do_repair() {
   echo ""
 
   # Verificar si está instalado
-  if [ ! -d "$INSTALL_DIR/Chat-Hyperland" ]; then
+  if [ ! -d "$INSTALL_DIR/Kara_AI" ]; then
     echo -e "${RED}$(t "not_installed")${NC}"
     echo -e "${DIM}Usa la opción 1 para instalar.${NC}"
     read -rp "Presiona Enter para continuar..."
@@ -468,11 +484,11 @@ do_repair() {
   echo -e "\n${CYAN}Verificando archivos del proyecto...${NC}"
 
   local missing_files=()
-  [ ! -f "$INSTALL_DIR/Chat-Hyperland/scripts/kara-widget.py" ] && missing_files+=("scripts/kara-widget.py")
-  [ ! -f "$INSTALL_DIR/Chat-Hyperland/src/index.html" ] && missing_files+=("src/index.html")
-  [ ! -f "$INSTALL_DIR/Chat-Hyperland/src/script.js" ] && missing_files+=("src/script.js")
-  [ ! -f "$INSTALL_DIR/Chat-Hyperland/src/style.css" ] && missing_files+=("src/style.css")
-  [ ! -f "$INSTALL_DIR/Chat-Hyperland/src/config.json" ] && missing_files+=("src/config.json")
+  [ ! -f "$INSTALL_DIR/Kara_AI/scripts/kara-widget.py" ] && missing_files+=("scripts/kara-widget.py")
+  [ ! -f "$INSTALL_DIR/Kara_AI/src/index.html" ] && missing_files+=("src/index.html")
+  [ ! -f "$INSTALL_DIR/Kara_AI/src/script.js" ] && missing_files+=("src/script.js")
+  [ ! -f "$INSTALL_DIR/Kara_AI/src/style.css" ] && missing_files+=("src/style.css")
+  [ ! -f "$INSTALL_DIR/Kara_AI/src/config.json" ] && missing_files+=("src/config.json")
 
   if [ ${#missing_files[@]} -gt 0 ]; then
     echo -e "${RED}Archivos faltantes:${NC}"
@@ -495,7 +511,7 @@ do_repair() {
   fi
 
   # Verificar permisos
-  chmod +x "$INSTALL_DIR/Chat-Hyperland/scripts/kara-widget.py"
+  chmod +x "$INSTALL_DIR/Kara_AI/scripts/kara-widget.py"
 
   echo -e "\n${GREEN}$(t "repair_ok")${NC}"
   read -rp "Presiona Enter para continuar..."
