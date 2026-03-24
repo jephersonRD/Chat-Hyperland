@@ -234,6 +234,24 @@ def main():
     )
     manager.add_script(script)
 
+    def on_script_message(user_content_manager, message):
+        try:
+            # Intentar obtener el string del mensaje
+            msg = None
+            if hasattr(message, 'get_string'):
+                msg = message.get_string()
+            elif hasattr(message, 'to_string'):
+                msg = message.to_string()
+            else:
+                msg = str(message)
+            
+            if msg and 'close' in msg:
+                Gtk.main_quit()
+        except Exception as e:
+            print(f"Error: {e}")
+
+    manager.connect('script-message-received::kara', on_script_message)
+
     wv.load_uri(f"file://{os.path.join(SRC_DIR, 'index.html')}")
 
     win.add(wv)
